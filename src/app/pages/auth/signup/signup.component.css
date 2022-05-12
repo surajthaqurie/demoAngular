@@ -1,0 +1,16 @@
+input.ng-invalid.ng-touched {
+  border-color: red;
+}
+
+input.ng-valid {
+  border-color: green;
+}
+
+.form-control input {
+  position: relative;
+}
+
+.icon i {
+
+  font-size: 25px;
+}

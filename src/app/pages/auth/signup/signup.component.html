@@ -1,0 +1,93 @@
+<section class="mt-5">
+    <div class="mask d-flex align-items-center gradient-custom-3">
+        <div class="container">
+            <div class="row d-flex justify-content-center align-items-center">
+                <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+                    <div class="card" style="border-radius: 15px;">
+                        <div class="card-body p-5">
+                            <h2 class="text-uppercase">Create an account</h2>
+                            <div class="alert-info text-center" *ngIf="successMessage">{{successMessage}}</div>
+                            <div class="card-body">
+                                <form #signForm="ngForm" (ngSubmit)="authSignup(signForm)">
+                                    <div class="row">
+                                        <div class="form-outline mb-4 col-md-6">
+                                            <label class="form-label" for="firstName">First Name</label>
+                                            <input class="form-control form-control-lg" type="text" id="firstName"
+                                                name="firstName" ngModel #firstName="ngModel" required />
+                                        </div>
+                                        <div class="form-outline mb-4 col-md-6">
+                                            <label class="form-label" for="lastName">Last Name</label>
+                                            <input class="form-control form-control-lg" type="text" id="lastName"
+                                                name="lastName" ngModel #lastName="ngModel" required />
+                                        </div>
+                                        <span class="alert-danger mb-2" *ngIf="errFirstName;">{{errFirstName}}
+                                        </span>
+                                        <span class="alert-danger mb-2" *ngIf="errLastName">{{errLastName}}
+                                        </span>
+                                    </div>
+
+                                    <div class="form-outline mb-4">
+                                        <label class="form-label" for="email">Your Email</label>
+                                        <input type="email" id="email" class="form-control form-control-lg" name="email"
+                                            ngModel #email="ngModel" required />
+
+                                        <span class="alert-danger mb-2 mt-3" *ngIf="errEmail">{{errEmail}}
+                                        </span>
+                                    </div>
+
+                                    <div class="form-outline mb-4">
+                                        <label class="form-label" for="password">Password</label>
+                                        <input class="form-control form-control-lg" type="password" id="password"
+                                            required name="password" ngModel #password="ngModel" />
+
+                                        <span class="alert-danger mb-2 mt-2" *ngIf="errPassword">{{errPassword}}
+                                        </span>
+                                    </div>
+
+                                    <div class="form-outline mb-4">
+                                        <label class="form-label" for="contactNumber">Contact Number</label>
+                                        <input class="form-control form-control-lg" type="text" id="contactNumber"
+                                            required name="contactNo" ngModel #contactNo="ngModel" />
+
+                                        <span class="alert-danger mb-2 mt-2" *ngIf="errContactNo">{{errContactNo}}
+                                        </span>
+                                    </div>
+
+                                    <div class="form-outline mb-4">
+                                        <label class="form-label" for="address">Address</label>
+                                        <input class="form-control form-control-lg" type="text" id="address" required
+                                            name="address" ngModel #address="ngModel" />
+
+                                        <span class="alert-danger mb-2 mt-2" *ngIf="errAddress">{{errAddress}}
+                                        </span>
+                                    </div>
+
+                                    <div class="form-check d-flex mb-5">
+                                        <input class="form-check-input me-2" type="checkbox" id="termsAndCondition"
+                                            name="termsAndCondition" ngModel #termsAndCondition="ngModel" required />
+
+                                        <label class="form-check-label" for="termsAndCondition">
+                                            I agree all statements in <a href="" class="text-body"><u>Terms of
+                                                    service</u></a>
+                                        </label>
+                                    </div>
+
+                                    <div class="d-flex justify-content-center">
+                                        <button type="submit" class="btn btn-primary btn-block btn-lg gradient-custom-4"
+                                            [disabled]="signForm.invalid">Signup</button>
+                                    </div>
+
+                                    <p class=" text-center text-muted mt-5 mb-0">Have already an account? <a
+                                            routerLink="/auth/login" class="fw-bold text-body"><u>Login here</u></a>
+                                    </p>
+
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

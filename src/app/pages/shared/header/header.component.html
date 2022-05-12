@@ -1,0 +1,57 @@
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-scroll shadow-0 border-bottom border-dark mb-5">
+    <div class="container">
+        <a class="navbar-brand" routerLink="">Blog</a>
+        <button class="navbar-toggler" type="button" data-mdb-toggle="collapse"
+            data-mdb-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+            aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <!-- <div class="col-md-4 ">
+                <form class=" input-group w-auto my-auto mb-3 mb-md-0">
+                    <input autocomplete="off" type="search" class="form-control rounded" placeholder="Search" />
+                    <span class="input-group-text border-0 d-none d-lg-flex"><i class="fas fa-search"></i></span>
+                </form>
+            </div> -->
+
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="">Our Story</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="">Membership</a>
+                </li>
+                <li class="nav-item mr-2">
+                    <a class="nav-link" routerLink="">Write</a>
+                </li>
+                <li class="nav-item" *ngIf="!user">
+                    <button type="button" routerLink="/auth/login" class="btn btn-dark ms-3">Sign
+                        In</button>
+                </li>
+
+                <li class="nav-item" *ngIf="user">
+                    <div class="dropdown show">
+                        <a class="btn btn-outline-dark dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <img *ngIf="!user.imageUrl"
+                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjtNBgCacCwHhxVPj1ubPRygdT7X_7w_UrLQ&usqp=CAU"
+                                width="40" height="40" class="rounded-circle" data-holder-rendered="true">
+
+                            <img *ngIf="user.imageUrl" [src]="user.imageUrl" width="40" height="40"
+                                class="rounded-circle" data-holder-rendered="true">
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a *ngIf="user?.role[0]==='admin'" class="dropdown-item"
+                                routerLink="/admin/dashboard">Dashboard</a>
+                            <a class="dropdown-item" routerLink="/user/profile">View Profile</a>
+                            <a class="dropdown-item" (click)="logOut()">Log Out</a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- Navbar -->

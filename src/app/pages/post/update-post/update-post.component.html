@@ -1,0 +1,66 @@
+<div class="card main" *ngIf="post">
+    <div class="cancelBtn" (click)="closeUpdateForm()">
+        <i class="fa fa-times fa-lg closeIcon" aria-hidden="true"></i>
+
+    </div>
+    <!-- <h3 class="">New Post</h3> -->
+    <!-- <div class="alert-info text-center" *ngIf="successMessage">{{successMessage}}</div> -->
+    <div class="card-body container">
+
+        <div class="alert-info text-center" *ngIf="successMessage">{{successMessage|titlecase}}</div>
+        <div class="alert-danger text-center" *ngIf="errorMessage">{{errorMessage|titlecase}}</div>
+
+        <form #updatePostData="ngForm" (ngSubmit)="updatePost(updatePostData)" enctype="multipart/form-data">
+            <!-- Name input -->
+            <div class="row">
+                <div class="col-md-6 form-outline">
+                    <label class="form-label" for="postTitle">Title</label>
+                    <input type="text" id="postTitle" class="form-control" name="title" [(ngModel)]="post.title" ngModel
+                        required />
+                    <span class="alert-danger mb-2" *ngIf="errTitle;">{{errTitle|titlecase}}
+                    </span>
+                </div>
+                <div class="col-md-6 form-outline">
+                    <img *ngIf="!post.imageUrl"
+                        src="https://archive.org/download/no-photo-available/no-photo-available.png"
+                        style=" width: 100px; height: 100px" class="img-thumbnail" alt="..." />
+                    <img *ngIf="post.imageUrl" [src]="post.imageUrl" style=" width: 100px; height: 100px"
+                        class="img-thumbnail" alt="..." />
+                    <br />
+                    <!-- <div class="btn btn-primary btn-md mt-1 waves-effect waves-light">
+                        <span *ngIf="!post.imageUrl">Upload Image</span>
+                        <span *ngIf="post.imageUrl">Change Image</span>
+                        <input type="file" name="file" placeholder="Upload Image" (change)="onFileSelect($event)"
+                            hidden>
+                    </div> -->
+                    <input type="file" name="file" placeholder="Upload Image" (change)="onFileSelect($event)">
+                </div>
+            </div>
+
+            <div class="col-md-5">
+                <label class="form-label" for="category">Category</label>
+                <select class="form-select form-select-md mb-3" aria-label=".form-select-lg example" ngModel
+                    name="category">
+                    <option *ngIf="catTitle;" selected>
+                        {{catTitle|titlecase}}
+                    </option>
+                    <option *ngFor="let cat of category" [value]="cat._id">
+                        {{cat.title|titlecase}}
+                    </option>
+                </select>
+            </div>
+
+            <div class="col-md-8 form-outline mb-3">
+                <label class="form-label" for="form4Example3">Content</label>
+                <textarea name="content" [(ngModel)]="post.content" ngModel #content="ngModel" required
+                    class="form-control" id="form4Example3" rows="4"></textarea>
+                <span class="alert-danger mb-2" *ngIf="errContent;">{{errContent|titlecase}}
+                </span>
+            </div>
+
+            <!-- Submit button -->
+            <button type="submit" [disabled]="updatePostData.invalid" class="btn btn-primary btn-block">Save</button>
+        </form>
+    </div>
+
+</div>

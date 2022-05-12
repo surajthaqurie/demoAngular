@@ -1,0 +1,181 @@
+<div class="container gradient-custom-2 rounded bg-white mb-5" *ngIf="user; else elseBlock;">
+        <div class="row">
+                <div class="col-md-3 border-right">
+
+                        <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img
+                                        *ngIf="!user.imageUrl" class="rounded-circle mt-5" width="150px"
+                                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjtNBgCacCwHhxVPj1ubPRygdT7X_7w_UrLQ&usqp=CAU">
+                                <img *ngIf="user.imageUrl" class="rounded-circle mt-5" width="150px"
+                                        [src]="user.imageUrl">
+
+                                <div style="margin-top: -25px !important;
+                                margin-right: -40px !important;">
+                                        <label class="btn btn-default">
+                                                <i class="fa fa-camera fa-xl"></i>
+                                                <input type="file" hidden (change)="onFileSelect($event)" />
+                                        </label>
+                                </div>
+
+                                <span class=" font-weight-bold">{{user?.firstName|titlecase}}
+                                        {{user?.lastName|titlecase}}</span><span
+                                        class="text-black-50">{{user?.email|titlecase}}</span><span>
+                                </span>
+                        </div>
+                </div>
+                <div class="col-md-5 border-right">
+                        <form #updateProfileForm="ngForm" (ngSubmit)="updateUserProfile(updateProfileForm)">
+                                <div class="p-3 py-5">
+                                        <div class="d-flex justify-content-between align-items-center mb-3">
+                                                <h4 class="text-right">Profile Settings</h4>
+
+                                        </div>
+                                        <div class="row mt-2">
+                                                <div class="alert-info text-center" *ngIf="successMessage">
+                                                        {{successMessage|titlecase}}</div>
+                                                <div class="alert-info text-center" *ngIf="errorMessage">
+                                                        {{errorMessage|titlecase}}</div>
+
+                                                <div class="col-md-6"><label class="labels">First Name</label><input
+                                                                type="text" class="form-control"
+                                                                placeholder="first name" name="firstName"
+                                                                [(ngModel)]="user.firstName" ngModel required></div>
+
+                                                <div class="col-md-6"><label class="labels">Last Name</label><input
+                                                                type="text" class="form-control" name="lastName"
+                                                                [(ngModel)]="user.lastName" ngModel required
+                                                                placeholder="last name"></div>
+                                                <span class="alert-danger mb-2 mt-2"
+                                                        *ngIf="errFirstName;">{{errFirstName|titlecase}}
+                                                </span>
+                                                <span class="alert-danger mb-2 mt-2"
+                                                        *ngIf="errLastName">{{errLastName|titlecase}}
+                                                </span>
+                                        </div>
+                                        <div class="row mt-3">
+                                                <div class="col-md-12"><label class="labels">Email ID</label><input
+                                                                type="text" class="form-control"
+                                                                placeholder="enter email id" name="email"
+                                                                [(ngModel)]="user.email" ngModel required>
+                                                        <span class="alert-danger mb-2 mt-2"
+                                                                *ngIf="errEmail">{{errEmail|titlecase}}
+                                                        </span>
+                                                </div>
+                                                <div class="col-md-12"><label class="labels">Contact
+                                                                Number</label><input type="text" class="form-control"
+                                                                placeholder="enter contact number" name="contactNo"
+                                                                [(ngModel)]="user.contactNo" ngModel required>
+                                                        <span class="alert-danger mb-2 mt-2"
+                                                                *ngIf="errContactNo">{{errContactNo|titlecase}}
+                                                        </span>
+                                                </div>
+
+                                                <div class="col-md-12"><label class="labels">Address</label><input
+                                                                type="text" class="form-control"
+                                                                placeholder="enter address" name="address"
+                                                                [(ngModel)]="user.address" ngModel required>
+                                                        <span class="alert-danger mb-2 mt-2"
+                                                                *ngIf="errAddress">{{errAddress|titlecase}}
+                                                        </span>
+                                                </div>
+
+                                                <div class="col-md-12"><label class="labels">Street</label><input
+                                                                type="text" class="form-control"
+                                                                placeholder="enter street" name="street"
+                                                                [(ngModel)]="user.street" ngModel required>
+                                                        <span class="alert-danger mb-2 mt-2"
+                                                                *ngIf="errStreet">{{errStreet|titlecase}}
+                                                        </span>
+                                                </div>
+
+                                                <div class="col-md-12"><label class="labels">city</label><input
+                                                                type="text" class="form-control"
+                                                                placeholder="enter city" name="city"
+                                                                [(ngModel)]="user.city" ngModel required>
+                                                        <span class="alert-danger mb-2 mt-2"
+                                                                *ngIf="errCity">{{errCity|titlecase}}
+                                                        </span>
+                                                </div>
+                                        </div>
+                                        <div class="row mt-3">
+                                                <div class="col-md-6"><label class="labels">Country</label>
+                                                        <input type="text" class="form-control" placeholder="country"
+                                                                name="country" [(ngModel)]="user.country" ngModel
+                                                                required>
+                                                        <span class="alert-danger mb-2 mt-2"
+                                                                *ngIf="errCountry">{{errCountry|titlecase}}
+                                                        </span>
+                                                </div>
+                                                <div class="col-md-6"><label class="labels">Postal code</label>
+                                                        <input type="text" class="form-control" name="zipCode"
+                                                                [(ngModel)]="user.zipCode" ngModel required
+                                                                placeholder="enter postal code">
+                                                        <span class="alert-danger mb-2 mt-2"
+                                                                *ngIf="errPostalCode">{{errPostalCode|titlecase}}
+                                                        </span>
+                                                </div>
+                                        </div>
+                                        <div class="mt-5 text-center"><button class="btn btn-primary profile-button"
+                                                        type="submit">Save
+                                                        Profile</button></div>
+                                </div>
+                        </form>
+                </div>
+                <div class="col-md-4">
+                        <div class="p-3 py-5">
+                                <form #passwordUpdateForm="ngForm" (ngSubmit)="updateUserPassword(passwordUpdateForm)">
+                                        <div class="d-flex justify-content-between align-items-center experience">
+                                                <span (click)="showPasswordForm()"
+                                                        class="border px-3 p-1 add-experience"><i
+                                                                class="fa fa-plus"></i>&nbsp;Edit
+                                                        Password</span>
+                                        </div><br>
+                                        <div class="alert-info text-center" *ngIf="passwordChangeSuccessMsg">
+                                                {{passwordChangeSuccessMsg|titlecase}}</div>
+                                        <div class="alert-info text-center" *ngIf="passwordChangeErrorMsg">
+                                                {{passwordChangeErrorMsg|titlecase}}</div>
+                                        <div class="col-md-12" *ngIf="showPassword">
+                                                <label class="labels">Current Password<span
+                                                                class="requires">*</span></label><input type="password"
+                                                        class="form-control" placeholder="Current Password"
+                                                        name="currentPassword" ngModel #currentPassword="ngModel"
+                                                        required>
+                                                <span class="alert-danger mb-2 mt-2"
+                                                        *ngIf="errCurrentPassword">{{errCurrentPassword|titlecase}}
+                                                </span>
+                                        </div> <br>
+                                        <div class="col-md-12" *ngIf="showPassword">
+                                                <label class="labels">New Password<span
+                                                                class="requires">*</span></label><input type="password"
+                                                        class="form-control" placeholder="New Password"
+                                                        name="newPassword" ngModel #newPassword="ngModel" required>
+                                                <span class="alert-danger mb-2 mt-4"
+                                                        *ngIf="errNewPassword">{{errNewPassword|titlecase}}
+                                                </span>
+                                        </div>
+                                        <br>
+                                        <div class="col-md-12" *ngIf="showPassword">
+                                                <label class="labels">Confirm Password<span
+                                                                class="requires">*</span></label><input type="password"
+                                                        class="form-control" placeholder="Confirm Password"
+                                                        name="confirmPassword" ngModel #confirmPassword="ngModel"
+                                                        required>
+                                                <span class="alert-danger mb-2 mt-2"
+                                                        *ngIf="errConfirmPassword">{{errNewPassword|titlecase}}
+                                                </span>
+                                        </div>
+                                        <div class="mt-3 text-right mr-3" *ngIf="showPassword">
+                                                <button class="btn btn-primary profile-button"
+                                                        [disabled]="passwordUpdateForm.invalid"
+                                                        type="submit">Save</button>
+                                        </div>
+                                </form>
+                        </div>
+                </div>
+
+
+        </div>
+</div>
+
+<ng-template #elseBlock>
+        <h3>Some thing wrong............</h3>
+</ng-template>

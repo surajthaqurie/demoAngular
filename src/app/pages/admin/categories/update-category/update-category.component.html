@@ -1,0 +1,37 @@
+<div class="card main" *ngIf="category">
+    <div class="cancelBtn" (click)="closeUpdateForm()">
+        <i class="fa fa-times fa-lg closeIcon" aria-hidden="true"></i>
+
+    </div>
+    <h3 class="">Edit Category</h3>
+    <div class="card-body container">
+        <div class="alert-info text-center" *ngIf="successMessage">{{successMessage|titlecase}}</div>
+        <div class="alert-danger text-center" *ngIf="errorMessage">{{errorMessage|titlecase}}</div>
+
+        <form #updateCategoryForm="ngForm" (ngSubmit)="updateCategory(updateCategoryForm)">
+            <!-- Name input -->
+            <div class="form-row">
+                <div class="col-md-6 form-outline mb-3">
+                    <label class="form-label" for="postTitle">Title</label>
+                    <input type="text" id="postTitle" class="form-control" name="title" [(ngModel)]="category.title"
+                        ngModel #title="ngModel" required />
+                </div>
+                <span class="alert-danger mb-2" *ngIf="errTitle;">{{errTitle|titlecase}}
+                </span>
+
+                <div class="col-md-12 form-outline mb-3">
+                    <label class="form-label" for="form4Example3">Description</label>
+                    <textarea name="description" [(ngModel)]="category.description" #description="ngModel" required
+                        class="form-control" id="form4Example3" rows="4"></textarea>
+                    <span class="alert-danger mb-2" *ngIf="errDescription;">{{errDescription|titlecase}}
+                    </span>
+                </div>
+            </div>
+
+            <!-- Submit button -->
+            <button type="submit" [disabled]="updateCategoryForm.invalid"
+                class="btn btn-primary btn-block">Post</button>
+        </form>
+    </div>
+
+</div>

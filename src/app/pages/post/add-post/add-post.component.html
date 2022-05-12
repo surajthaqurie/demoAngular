@@ -1,0 +1,56 @@
+<div class="card main">
+    <div class="cancelBtn" (click)="closeCreateForm()">
+        <i class="fa fa-times fa-lg closeIcon" aria-hidden="true"></i>
+
+    </div>
+
+    <h3 class="">New Post</h3>
+    <!-- <div class="alert-info text-center" *ngIf="successMessage">{{successMessage}}</div> -->
+    <div class="card-body container">
+
+        <div class="alert-info text-center" *ngIf="successMessage">{{successMessage|titlecase}}</div>
+        <div class="alert-danger text-center" *ngIf="errorMessage">{{errorMessage|titlecase}}</div>
+
+        <form #addPostForm="ngForm" (ngSubmit)="addPost(addPostForm)">
+            <!-- Name input -->
+
+            <div class="form-row">
+                <div class="col-md-6 form-outline">
+                    <label class="form-label" for="postTitle">Title<span class="require">*</span></label>
+                    <input type="text" id="postTitle" class="form-control" name="title" ngModel #title="ngModel"
+                        required />
+                </div>
+                <span class="alert-danger mb-2" *ngIf="errTitle;">{{errTitle|titlecase}}
+                </span>
+                <div class="col-md-6">
+                    <!--  <div class="col-md-2 mb-1 mt-2 form-outline">
+                        <label class="btn btn-default">
+                            <i class="fas fa-2xl fa-image"></i><input type="file" hidden>
+                        </label>
+                    </div> -->
+                </div>
+                <div class="col-md-6 mt-3 form-outline">
+                    <label class="form-label" for="cetegory">Category<span class="require">*</span></label>
+                    <select class="form-select mb-3" ngModel name="category" aria-label=".form-select-lg example">
+                        <option selected>Category</option>
+                        <option *ngFor="let cat of category" [value]="cat._id" selected>{{cat.title|titlecase}}
+                        </option>
+                    </select>
+                </div>
+
+
+                <div class="col-md-12 form-outline mb-3">
+                    <label class="form-label" for="form4Example3">Content<span class="require">*</span></label>
+                    <textarea name="content" ngModel #content="ngModel" required class="form-control" id="form4Example3"
+                        rows="4"></textarea>
+                    <span class="alert-danger mb-2" *ngIf="errContent;">{{errContent|titlecase}}
+                    </span>
+                </div>
+            </div>
+
+            <!-- Submit button -->
+            <button type="submit" [disabled]="addPostForm.invalid" class="btn btn-primary btn-block">Post</button>
+        </form>
+    </div>
+
+</div>

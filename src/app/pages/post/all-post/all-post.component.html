@@ -1,0 +1,57 @@
+<div *ngIf="posts.length>0; else noPost">
+    <table class="table align-middle mb-0 bg-white">
+        <thead class="bg-light">
+            <tr>
+                <th>Owner</th>
+                <th>Title</th>
+                <th>Category</th>
+                <th>Created On</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody *ngFor="let post of posts">
+            <tr>
+                <td>
+                    <div class="d-flex align-items-center">
+                        <img *ngIf="post.owner.imageUrl" [src]="post.owner.imageUrl" alt=""
+                            style="width: 45px; height: 45px" class="rounded-circle" />
+                        <div class="ms-3">
+                            <p class="fw-bold mb-1">{{post.owner.fullName}}</p>
+                            <p class="text-muted mb-0">{{post.owner.email}}</p>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="d-flex align-items-center">
+
+                        <img *ngIf="post.imageUrl" [src]="post.imageUrl" alt={{post.title}}
+                            style=" width: 45px; height: 45px" class="rounded-circle" />
+                        <div class="ms-3">
+                            <p class="fw-bold mb-1">{{post.title|titlecase}}</p>
+                            <p class="text-noraml mb-0">{{post.content.substr(0,35)}} ...</p>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <p class="fw-normal" *ngIf="post?.category">{{post.category.title|titlecase}}</p>
+                    <p class="fw-normal" *ngIf="!post.category"><span class="badge badge-secondary">Uncategorized</span>
+                    </p>
+
+                </td>
+                <td>{{post.created_on|date}}</td>
+                <td>
+                    <button type="button" (click)="updatePost(post._id)" class="btn btn-primary"> <i
+                            class="fas fa-edit"></i>
+                    </button><span class="m-2"></span>
+                    <button type="button" (click)="deletePost(post._id)" class="btn btn-danger"><i class="fa fa-trash"
+                            aria-hidden="true"></i></button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>
+<ng-template #noPost class="container">
+    <p *ngIf="errorMessage; else error" class="alert alert-info text-center">{{errorMessage}}</p>
+    <ng-template #error class="alert alert-danger text-center">{{errorMessage}}</ng-template>
+</ng-template>

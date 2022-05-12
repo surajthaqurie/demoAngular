@@ -1,0 +1,14 @@
+.favoriteIcon {
+    cursor: pointer;
+}
+
+.fa-heart-isFav {
+    color: rgb(255, 20, 98);
+
+}
+
+.fa-heart-isNotFav {
+    color: #ccc;
+
+}
+

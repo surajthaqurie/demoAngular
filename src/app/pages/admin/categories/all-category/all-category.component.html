@@ -1,0 +1,48 @@
+<div *ngIf="categories?.length>0; else noCategory">
+    <table class="table align-middle mb-0 bg-white">
+        <thead class="bg-light">
+            <tr>
+                <th>Owner</th>
+                <th>Title</th>
+                <th>Created On</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody *ngFor="let category of categories">
+            <tr>
+                <td>
+                    <div class="d-flex align-items-center">
+                        <img *ngIf="category.owner.imageUrl" [src]="category.owner.imageUrl" alt=""
+                            style="width: 45px; height: 45px" class="rounded-circle" />
+                        <div class="ms-3">
+                            <p class="fw-bold mb-1">{{category.owner.fullName}}</p>
+                            <p class="text-muted mb-0">{{category.owner.email}}</p>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="d-flex align-items-center">
+                        <div class="ms-3">
+                            <p class="fw-bold mb-1">{{category.title|titlecase}}</p>
+                            <p class="text-noraml mb-0">{{category.description.substr(0,35)|titlecase}} ...</p>
+                        </div>
+                    </div>
+                </td>
+                <td>{{category.created_on|date}}</td>
+                <td>
+
+                    <button type="button" (click)="updateCategory(category._id)" class="btn btn-primary"> <i
+                            class="fas fa-edit"></i>
+                    </button><span class="m-2"></span>
+
+                    <button type="button" (click)="deleteCategory(category._id)" class="btn btn-danger"><i
+                            class="fa fa-trash" aria-hidden="true"></i></button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<ng-template #noCategory class="container">
+    <p *ngIf="errorMessage; else error" class="alert alert-info text-center">{{errorMessage}}</p>
+    <ng-template #error class="alert alert-danger text-center">{{errorMessage}}</ng-template>
+</ng-template>
