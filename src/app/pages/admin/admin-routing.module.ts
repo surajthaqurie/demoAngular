@@ -10,14 +10,14 @@ const routes: Routes = [
     children: [
       {
         path: 'dashboard',
-        component: DashboardComponent
-      }
-    ]
+        component: DashboardComponent,
+      },
+    ],
   },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AdminRoutingModule { }
+export class AdminRoutingModule {}

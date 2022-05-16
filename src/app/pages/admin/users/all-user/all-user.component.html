@@ -1,67 +1,97 @@
-<div *ngIf="users?.length>0; else noUser">
-    <table class="table align-middle mb-0 bg-white">
-        <thead class="bg-light">
-            <tr>
-                <th>Name</th>
-                <th>Role</th>
-                <th>Contact No</th>
-                <th>Address</th>
-                <th>City</th>
-                <th>Country</th>
-                <th>Created On</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody *ngFor="let user of users">
-            <tr>
-                <td>
-                    <div class="d-flex align-items-center">
-                        <img *ngIf="user.imageUrl" [src]="user.imageUrl" alt="" style="width: 45px; height: 45px"
-                            class="rounded-circle" />
-                        <div class="ms-3">
-                            <p class="fw-bold mb-1">{{user.fullName}}</p>
-                            <p class="text-muted mb-0">{{user.email}}</p>
-                        </div>
-                    </div>
-                </td>
-                <td>
-                    <div class="d-flex align-items-center">
-                        <p class="fw-bold mb-1" *ngIf="user.role[0]==='admin'">
-                            <span class="badge badge-danger">{{user.role[0]|titlecase}}
-                            </span>
-                        </p>
-                        <p class="fw-bold mb-1" *ngIf="user.role[0]==='user'">
-                            <span class="badge badge-success">{{user.role[0]|titlecase}}</span>
-                        </p>
-                    </div>
-                </td>
-                <td>
-                    <p class="fw-normal">{{user.contactNo}}</p>
-                </td>
-                <td>
-                    <p class="fw-normal">{{user.address}}</p>
-                </td>
-                <td>
-                    <p class="fw-normal" *ngIf="user.city && user.city !=='undefined'">{{user.city}}</p>
-                    <p class="fw-normal" *ngIf="!user.city||user.city==='undefined'">-</p>
-                </td>
-                <td>
-                    <p class="fw-normal" *ngIf="user.country&& user.country !=='undefined'">{{user.country}}</p>
-                    <p class="fw-normal" *ngIf="!user.country||user.country==='undefined'">-</p>
-                </td>
-                <td>{{user.created_on|date}}</td>
-                <td>
-                    <!--   <button type="button" (click)="updateUser(user._id)" class="btn btn-primary"> <i
-                            class="fas fa-edit"></i>
-                    </button><span class="m-2"></span>
-                     -->
+<ol class="breadcrumb mb-4 p-2">
+    <li class="breadcrumb-item active">Dashboard > User</li>
+</ol>
 
-                    <button type="button" (click)="deleteUser(user._id)" class="btn btn-danger"><i class="fa fa-trash"
-                            aria-hidden="true"></i></button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+<div *ngIf="showEmployeeForm">
+    <app-create-employee (employeeCreated)="createdEmployeeFn($event)" (closeForm)="closeFormFn($event)">
+    </app-create-employee>
+</div>
+
+<div *ngIf="showPermissionForm">
+    <app-permission [employeeId]="employeeId" (closeForm)="closePermissionFormFn($event)"></app-permission>
+</div>
+<div *ngIf=" users?.length>0; else noUser">
+        <table class="table align-middle mb-0 bg-white">
+            <thead class="bg-light">
+                <tr>
+                    <th>Name</th>
+                    <th>Role</th>
+                    <th>Contact No</th>
+                    <th>Address</th>
+                    <th>City</th>
+                    <th>Country</th>
+                    <th>Created On</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody *ngFor="let user of users">
+                <tr>
+                    <td>
+                        <div class="d-flex align-items-center">
+                            <img *ngIf="user.imageUrl" [src]="user.imageUrl" alt="" style="width: 45px; height: 45px"
+                                class="rounded-circle" />
+                            <div class="ms-3">
+                                <p class="fw-bold mb-1">{{user.fullName}}</p>
+                                <p class="text-muted mb-0">{{user.email}}</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="d-flex align-items-center">
+                            <p class="fw-bold mb-1" *ngIf="user.role[0]==='admin'">
+                                <span class="badge badge-danger">{{user.role[0]|titlecase}}
+                                </span>
+                            </p>
+                            <p class="fw-bold mb-1" *ngIf="user.role[0]==='user'">
+                                <span class="badge badge-success">{{user.role[0]|titlecase}}</span>
+                            </p>
+                            <p class="fw-bold mb-1" *ngIf="user.role[0]==='employee'">
+                                <span class="badge badge-info">{{user.role[0]|titlecase}}</span>
+                            </p>
+                        </div>
+                    </td>
+                    <td>
+                        <p class="fw-normal">{{user.contactNo}}</p>
+                    </td>
+                    <td>
+                        <p class="fw-normal">{{user.address}}</p>
+                    </td>
+                    <td>
+                        <p class="fw-normal" *ngIf="user.city && user.city !=='undefined'">{{user.city}}</p>
+                        <p class="fw-normal" *ngIf="!user.city||user.city==='undefined'">-</p>
+                    </td>
+                    <td>
+                        <p class="fw-normal" *ngIf="user.country&& user.country !=='undefined'">{{user.country}}</p>
+                        <p class="fw-normal" *ngIf="!user.country||user.country==='undefined'">-</p>
+                    </td>
+                    <td>{{user.created_on|date}}</td>
+                    <td>
+                        <!-- <button type="button" class="btn btn-primary" *ngIf="user.role[0]==='employee'"
+                        (click)="editEmployee(user._id)"> <i class="fas fa-edit"></i>
+                    </button><span class="m-2"></span> -->
+
+                        <!-- <button type="button" (click)="deleteUser(user._id)" class="btn btn-danger"><i class="fa fa-trash"
+                        aria-hidden="true"></i></button> -->
+                        <div class="dropdown show">
+                            <button type="button" class="btn btn-primary dropdown-toggle" id="dropdownMenuLink"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                *ngIf="user.role[0]==='employee'"> <i class="fas fa-edit"></i>
+                            </button><span class="m-2"></span>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" (click)="editEmployee(user._id)">Manage Permission</a>
+                                <a class="dropdown-item"><s>Edit</s></a>
+                            </div>
+                            <button type="button" (click)="deleteUser(user._id)" class="btn btn-danger"><i
+                                    class="fa fa-trash" aria-hidden="true"></i></button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- <button class="btn btn-primary mt-2 btnAddPost" (click)="loadAddEmployee()">Add New Employee</button> -->
+
+        <button class="btn btn-primary mt-2 btnAddPost" (click)="showAddForm()">Add New Employee </button>
+
 
 </div>
 <ng-template #noUser class="container">

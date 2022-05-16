@@ -56,14 +56,18 @@
                 <div class="sb-sidenav-menu">
                     <div class="nav">
                         <div class="sb-sidenav-menu-heading">Core</div>
-                        <a class="nav-link" href="index.html">
+                        <a class="nav-link" routerLink="/admin/dashboard">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             Dashboard
                         </a>
-                        <a class="nav-link" href="//localhost:4200/">
+                        <a class="nav-link" routerLink="">
                             <div class="sb-nav-link-icon"><i class="fa fa-globe"></i></div>
                             View Site
                         </a>
+                        <!--   <a class="nav-link" routerLink="/admin/create-employee">
+                            <div class="sb-nav-link-icon"><i class="fas fa-user-plus"></i></div>
+                            Add new Employee
+                        </a> -->
                         <div class="sb-sidenav-menu-heading">Interface</div>
 
                         <div (click)="showPostDetails()">
@@ -85,10 +89,20 @@
                                 }
                             }]">All Post</a> -->
 
-                                <a class="nav-link" routerLink="/admin/dashboard" (click)="showPostDetails()">All Post</a>
+                                <a class="nav-link" routerLink="/admin/dashboard" (click)="showPostDetails()">All
+                                    Post</a>
                                 <a class="nav-link" routerLink="/admin/dashboard" (click)="showAddForm()">Create New
                                     Post</a>
                             </nav>
+                        </div>
+
+
+                        <div (click)="showAllCategoryDetails()">
+                            <a class="nav-link collapsed nav-lists">
+                                <div class="sb-nav-link-icon"><i class="fa fa-list-alt" aria-hidden="true"> </i></div>
+                                Categories
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
                         </div>
 
                         <div (click)="showUserDetails()">
@@ -99,15 +113,6 @@
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
                         </div>
-
-                        <div (click)="showAllCategoryDetails()">
-                            <a class="nav-link collapsed nav-lists">
-                                <div class="sb-nav-link-icon"><i class="fa fa-list-alt" aria-hidden="true"> </i></div>
-                                Categories
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                        </div>
-
                     </div>
                 </div>
                 <div class="sb-sidenav-footer">
@@ -118,29 +123,30 @@
         </div>
         <div id="layoutSidenav_content">
             <main>
-                <div class="container-fluid px-4">
-                    <h1 class="mt-4">Dashboard</h1>
-                    <ol class="breadcrumb mb-4">
-                        <li class="breadcrumb-item active">Dashboard</li>
-                    </ol>
+                <div class="container-fluid">
+                    <h1>Dashboard</h1>
                 </div>
 
                 <div *ngIf="showAddPost">
-                    <app-add-post (postCreated)="postCreatedFn($event)" (closeForm)="closePostCreateFn($event)"></app-add-post>
+                    <app-add-post (postCreated)="postCreatedFn($event)" (closeForm)="closePostCreateFn($event)">
+                    </app-add-post>
                 </div>
                 <div *ngIf="showAddCategory">
-                    <app-add-category (categoryCreated)="categoryCreatedFn($event)" (closeForm)="closeCategoryCreateFn($event)"></app-add-category>
+                    <app-add-category (categoryCreated)="categoryCreatedFn($event)"
+                        (closeForm)="closeCategoryCreateFn($event)"></app-add-category>
                 </div>
 
                 <div class="updatePost" *ngIf="showUpdatePosts">
-                    <app-update-post [postUpdateId]="postUpdateId" (closeUpdate)="closePostUpdateForm($event)"></app-update-post>
+                    <app-update-post [postUpdateId]="postUpdateId" (closeUpdate)="closePostUpdateForm($event)">
+                    </app-update-post>
                 </div>
 
                 <div *ngIf="showUpdateCategory">
-                    <app-update-category [categoryId]="categoryId" (categoryUpdateData)="categoryUpdateDataFn($event)"(closeUpdate)="closeCategoryUpdateForm($event)">
+                    <app-update-category [categoryId]="categoryId" (categoryUpdateData)="categoryUpdateDataFn($event)"
+                        (closeUpdate)="closeCategoryUpdateForm($event)">
                     </app-update-category>
                 </div>
-                <router-outlet name="dash"></router-outlet>
+                <router-outlet name="emp"></router-outlet>
 
 
                 <div *ngIf="showAllCategory">

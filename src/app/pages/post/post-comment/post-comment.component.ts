@@ -107,4 +107,27 @@ export class PostCommentComponent implements OnInit {
   // console.log('++++++++++++++++', this.postData);
   // this.postData.comments.replies.push(this.updatedComment.replies);
   // }
+  errorMessage: string = '';
+  approveComment(commentId: string) {
+    console.log('im clicked', commentId);
+
+    this.postService.makeCommentApproved(commentId).subscribe({
+      next: (result: any) => {
+        console.log(result);
+
+        setTimeout(() => {
+          window.location.reload();
+        }, 500);
+      },
+      error: (err) => {
+        console.log(err);
+
+        this.errorMessage = err.error.msg;
+
+        setTimeout(() => {
+          this.errorMessage = '';
+        }, 2000);
+      },
+    });
+  }
 }

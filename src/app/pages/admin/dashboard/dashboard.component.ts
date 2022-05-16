@@ -11,7 +11,7 @@ import { AuthService } from '../../auth/services/auth.service';
 export class DashboardComponent implements OnInit {
   showCreatePost: boolean = false;
   showUpdate: boolean = false;
-  
+
   showAll: boolean = false; // -----
   constructor(
     public http: HttpClient,
@@ -84,7 +84,7 @@ export class DashboardComponent implements OnInit {
   showUpdateCategory: boolean = false;
   showAddCategoryBtn: boolean = false;
 
-  showAllUser: boolean = false;
+  showAllUser: boolean = false; // false
 
   showAddForm() {
     this.showAddPost = true;

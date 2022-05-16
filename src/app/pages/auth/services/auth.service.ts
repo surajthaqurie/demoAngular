@@ -19,6 +19,13 @@ export class AuthService {
     return this.http.post(`${this.URL}/auth/login`, { emailContact, password });
   }
 
+  authEmployeeSignup(employeeSignupData: any) {
+    return this.http.post(
+      `${this.URL}/auth/employee/signup`,
+      employeeSignupData
+    );
+  }
+
   logout() {
     localStorage.removeItem('token');
     // window.location.href = '';

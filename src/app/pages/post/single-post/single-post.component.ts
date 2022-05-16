@@ -1,6 +1,9 @@
 import { Component, EventEmitter, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { PostService } from 'src/app/@core/services/post.service';
+import { AuthService } from 'src/app/@core/services/authenticate.service';
+import { PermissionService } from 'src/app/@core/services/permission.service';
+import { UserService } from 'src/app/@core/services/user.service';
 
 @Component({
   selector: 'app-single-post',
@@ -10,18 +13,87 @@ import { PostService } from 'src/app/@core/services/post.service';
 export class SinglePostComponent implements OnInit {
   constructor(
     public postService: PostService,
-    public activeRoute: ActivatedRoute
+    public activeRoute: ActivatedRoute,
+    public authService: AuthService,
+    public permissionService: PermissionService,
+    public userService: UserService
   ) {}
   post!: any;
   comment!: any;
+  userId: string = '';
+  userRole: any;
+  userPermission: any;
 
   ngOnInit(): void {
-    // console.log(this.activeRoute.snapshot.params['slug'])
-    // console.log(this.activeRoute.snapshot.paramMap.get('slug'))
+    // this.userService.getCurrentUser().subscribe({
+    //   next: (result: any) => {
+    //     this.userId = result.userProfile._id;
+    //     this.userRole = result.userProfile;
+    //   },
+    //   error: (err) => {
+    //     console.log(err);
+    //   },
+    // });
 
+    // this.permissionService.getEmployeePermission(this.userId).subscribe({
+    //   next: (result: any) => {},
+    //   error: (err) => {
+    //     console.log(err);
+    //   },
+    // });
     this.activeRoute.paramMap.subscribe((params: ParamMap) => {
       const slug = params.get('slug');
 
+      const user = this.authService.getDecodedUser('token');
+
+      if (user.role[0] === 'user') {
+        return this.postService.getPostBySlug(slug).subscribe({
+          next: (result: any) => {
+            // console.log(result);
+            this.post = result.posts;
+          },
+          error: (err) => {
+            console.log('-------------', err);
+          },
+        });
+      }
+      return this.postService.getPostUnApprovedComment(slug).subscribe({
+        next: (result: any) => {
+          // console.log(result);
+          this.post = result.posts;
+          // console.log(result.posts)
+        },
+        error: (err) => {
+          console.log('-------------', err);
+        },
+      });
+
+      /* 
+      if (this.userRole?.role[0] === 'admin') {
+        return this.postService.getPostUnApprovedComment(slug).subscribe({
+          next: (result: any) => {
+            // console.log(result);
+            this.post = result.posts;
+            // console.log(result.posts)
+          },
+          error: (err) => {
+            console.log('-------------', err);
+          },
+        });
+      }
+
+      if (this.userPermission?.includes('approve')) {
+        return this.postService.getPostUnApprovedComment(slug).subscribe({
+          next: (result: any) => {
+            // console.log(result);
+            this.post = result.posts;
+            // console.log(result.posts)
+          },
+          error: (err) => {
+            console.log('-------------', err);
+          },
+        });
+      }
       return this.postService.getPostBySlug(slug).subscribe({
         next: (result: any) => {
           // console.log(result);
@@ -31,6 +103,7 @@ export class SinglePostComponent implements OnInit {
           console.log('-------------', err);
         },
       });
+      */
     });
   }
 

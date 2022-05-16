@@ -16,6 +16,7 @@ export class AuthService {
     public localStorage: localStorageService
   ) {}
 
+  // Check token is expires or not
   getAuthStatus(key: string): boolean {
     const tokenStatus = this.localStorage.getLocalStorage(key);
     // const tokenStatus = jwt_decode(token);
@@ -35,8 +36,8 @@ export class AuthService {
         return 'admin';
       }
 
-      if (user.role[0] === 'staff') {
-        return 'staff';
+      if (user.role[0] === 'employee') {
+        return 'employee';
       }
 
       return 'user';
@@ -44,6 +45,17 @@ export class AuthService {
     return null;
   }
 
+  getDecodedUser(key: string) {
+    const token = this.localStorage.getLocalStorage(key);
+    if (token) {
+      const user: any = this.decodeAccessToken(token);
+      if (user) {
+        return user;
+      } else {
+        null;
+      }
+    }
+  }
   decodeAccessToken(token: string) {
     try {
       // console.log(jwt_decode(token));

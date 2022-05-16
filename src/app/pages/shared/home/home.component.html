@@ -27,7 +27,7 @@
                                     <div class="col-md-9">
                                         <div class="small text-muted">{{p.created_on |date:'medium'}}</div>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-3 favoriteIcon">
                                         <div (click)="active = i" (click)="clickEvent()"
                                             [ngClass]=" active===i ? 'fa-heart-isFav' : 'fa-heart-isNotFav'">
                                             <i class=" fa fa-heart fa-2xl"></i>

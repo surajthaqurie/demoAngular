@@ -1,0 +1,13 @@
+.error {
+    color: red;
+}
+
+.cancelBtn {
+    text-align: end;
+    cursor: pointer;
+    color: rgb(248, 86, 86);
+}
+
+.closeIcon:hover {
+    color: rgb(255, 0, 0);
+}

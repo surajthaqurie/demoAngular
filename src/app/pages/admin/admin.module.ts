@@ -9,8 +9,10 @@ import { AdminComponent } from './admin.component';
 import { AllUserComponent } from './users/all-user/all-user.component';
 import { AllCategoryComponent } from './categories/all-category/all-category.component';
 import { AddCategoryComponent } from './categories/add-category/add-category.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UpdateCategoryComponent } from './categories/update-category/update-category.component';
+import { CreateEmployeeComponent } from './users/create-employee/create-employee.component';
+import { PermissionComponent } from './users/permission/permission.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +22,8 @@ import { UpdateCategoryComponent } from './categories/update-category/update-cat
     AllCategoryComponent,
     AddCategoryComponent,
     UpdateCategoryComponent,
+    CreateEmployeeComponent,
+    PermissionComponent,
   ],
   imports: [
     CommonModule,
@@ -27,6 +31,7 @@ import { UpdateCategoryComponent } from './categories/update-category/update-cat
     FormsModule,
     RouterModule,
     PostModule,
+    ReactiveFormsModule,
   ],
   exports: [DashboardComponent],
 })

@@ -27,6 +27,10 @@ export class PostService {
     return this.$http.get(`${this.URL}/slug/${slug}`);
   }
 
+  getPostUnApprovedComment(slug: any) {
+    return this.$http.get(`${this.URL}/slug/unapproved/${slug}`);
+  }
+
   deletePost(id: string) {
     return this.$http.delete(`${this.URL}/${id}`);
   }
@@ -53,5 +57,9 @@ export class PostService {
 
   getCommentByd(id: string) {
     return this.$http.get(`${this.commentUrl}/${id}`);
+  }
+
+  makeCommentApproved(commentId: string) {
+    return this.$http.patch(`${this.commentUrl}/${commentId}`, '');
   }
 }

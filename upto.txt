@@ -1,1 +1,105 @@
-// check category conflicts -- in backend
+<section class="mb-5">
+    <div class="card bg-light">
+        <div class="card-body">
+            <!-- Comment form-->
+            <form class="mb-4" #addCommentForm="ngForm" (keydown.enter)="addComment(addCommentForm)">
+                <textarea name=" text" class="form-control" rows="3"
+                    placeholder="Join the discussion and leave a comment!" (keydown.enter)="$event.preventDefault()"
+                    type="text" name="text" ngModel></textarea>
+            </form>
+            <!-- Comment with nested comments-->
+            <ng-container *ngIf="postData?.comments?.length>0">
+                <div *ngFor="let comment of postData.comments">
+                    <div class="row mb-4">
+                        <!-- Parent comment-->
+                        <div class="flex-shrink-0 col-md-1">
+                            <img *ngIf="comment.owner.imageUrl" class="rounded-circle" [src]="comment.owner.imageUrl"
+                                style=" width: 45px; height: 45px" alt="..." />
+                        </div>
+
+                        <div class="col-md-11 alert alert-secondary" *ngIf="!comment.isApproved; else elseBlock">
+                            <div class="row">
+                                <div class="col-md-11">
+                                    <span class="fw-bold">{{comment.owner.fullName|titlecase}}</span>
+                                    <br />
+                                    {{comment.text}}
+                                </div>
+                                <div class="col-md-1 icon-approved">
+                                    <div class="dropdown show">
+                                        <span class="dropdown-toggle" id="dropdownMenuLink" data-toggle="dropdown"
+                                            aria-haspopup="true" aria-expanded="false"><i class="fa fa-ellipsis-v"
+                                                aria-hidden="true"></i>
+                                        </span>
+                                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                            <a class="dropdown-item" (click)="approveComment(comment._id)">Approve</a>
+                                            <a class="dropdown-item">Edit</a>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <ng-template #elseBlock class="col-md-11">
+                            <div class="row">
+                                <div class="col-md-11">
+                                    <span class="fw-bold">{{comment.owner.fullName|titlecase}}</span>
+                                    <br />
+                                    {{comment.text}}
+                                </div>
+                            </div>
+                        </ng-template>
+
+
+                        <!-- Child comment 1-->
+
+                        <!-- <div *ngFor="let replayComment of updatedComment">
+                                <div class="d-flex mt-4">
+                                    <div class="flex-shrink-0"><img *ngIf="replayComment.owner.imageUrl"
+                                            class="rounded-circle" [src]="replayComment.owner.imageUrl" alt="..."
+                                            style=" width: 45px; height: 45px" />
+                                    </div>
+                                    <div class="ms-3">
+                                        <div class="fw-bold">{{replayComment.owner.fullName}}</div>
+                                        {{replayComment.text}}
+                                    </div>
+                                </div>
+                            </div> -->
+
+                        <!-- Child comment 2-->
+                        <!--  <div class="d-flex mt-4">
+                                <div class="flex-shrink-0"><img class="rounded-circle"
+                                        src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
+                                <div class="ms-3">
+                                    <div class="fw-bold">Commenter Name</div>
+                                    When you put money directly to a problem, it makes a good headline.
+                                </div>
+                            </div> -->
+                        <!-- <form class="mb-4" #messageEl #addReplyCommentForm="ngForm"
+                                [attr.data-message-id]="comment._id"
+                                (keydown.enter)="addReplyComment(addReplyCommentForm)">
+
+                                <textarea name=" text" style="background-color: #fffefe" class="form-control mt-4"
+                                    rows="2" placeholder="reply a comment!" (keydown.enter)="$event.preventDefault()"
+                                    (keydown.enter)="logMessageId(messageEl)" type="text" name="text" ngModel>
+                                </textarea>
+                            </form> -->
+                        <!-- </div> -->
+                    </div>
+                    <!-- Single comment-->
+                    <!-- <div class="d-flex">
+                        <div class="flex-shrink-0"><img class="rounded-circle"
+                                src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
+                        <div class="ms-3">
+                            <div class="fw-bold">Commenter Name</div>
+                            When I look at the universe and all the ways the universe wants to kill us, I find
+                            it
+                            hard to reconcile that with statements of beneficence.
+                        </div>
+                    </div> -->
+                </div>
+            </ng-container>
+
+        </div>
+    </div>
+</section>

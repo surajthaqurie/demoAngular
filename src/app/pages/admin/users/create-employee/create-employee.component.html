@@ -1,0 +1,197 @@
+<section class="mt-5">
+    <div class="mask d-flex align-items-center gradient-custom-3">
+        <div class="container">
+            <div class="row d-flex justify-content-center align-items-center">
+                <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+                    <div class="card" style="border-radius: 15px;">
+                        <div class="card-body p-5">
+                            <div class="cancelBtn" (click)="closeCreateForm()">
+                                <i class="fa fa-times fa-lg closeIcon" aria-hidden="true"></i>
+                            </div>
+                            <h4 class="text-uppercase">Create new Employee</h4>
+                            <div class="alert-info text-center" *ngIf="successMessage">{{successMessage}}</div>
+                            <div class="card-body">
+                                <form [formGroup]="registerForm" (ngSubmit)="createEmployee()">
+                                    <div class="row">
+                                        <div class="form-outline mb-4 col-md-6">
+                                            <label class="form-label" for="firstName">First Name</label>
+                                            <input class="form-control form-control-lg" type="text" id="firstName"
+                                                required formControlName="firstName" />
+
+                                            <div [hidden]="rgForm['firstName'].valid||rgForm['firstName'].untouched">
+                                                <small class="error alert-danger"
+                                                    [hidden]="!rgForm['firstName'].hasError('required')">First name is
+                                                    required !!!
+                                                </small>
+                                                <small class="error alert-danger"
+                                                    [hidden]="!rgForm['firstName'].hasError('minlength')">Must
+                                                    be minium 5 character
+                                                </small>
+                                                <small class="error alert-danger"
+                                                    [hidden]="!rgForm['firstName'].hasError('maxlength')">The first name
+                                                    can't
+                                                    exceed 25 characters
+                                                </small>
+
+                                            </div>
+
+                                        </div>
+                                        <div class=" form-outline mb-4 col-md-6">
+                                            <label class="form-label" for="lastName">Last Name</label>
+                                            <input class="form-control form-control-lg" type="text" id="lastName"
+                                                required formControlName="lastName" />
+
+                                            <div [hidden]="rgForm['lastName'].valid||rgForm['lastName'].untouched">
+                                                <small class="error alert-danger"
+                                                    [hidden]="!rgForm['lastName'].hasError('required')">Last name is
+                                                    required !!!
+                                                </small>
+                                                <small class="error alert-danger"
+                                                    [hidden]="!rgForm['lastName'].hasError('minlength')">Must
+                                                    be minium 5 character
+                                                </small>
+                                                <small class="error alert-danger"
+                                                    [hidden]="!rgForm['lastName'].hasError('maxlength')"> The last name
+                                                    can't
+                                                    exceed 25 characters
+                                                </small>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-outline mb-4">
+                                        <label class="form-label" for="email">Your Email</label>
+                                        <input type="email" id="email" class="form-control form-control-lg" required
+                                            formControlName="email" />
+
+                                        <div [hidden]="rgForm['email'].valid||rgForm['email'].untouched">
+                                            <small class="error alert-danger"
+                                                [hidden]="!rgForm['email'].hasError('required')">Email
+                                                is
+                                                required !!!
+                                            </small>
+                                            <small class="error alert-danger"
+                                                [hidden]="!rgForm['email'].hasError('email')">Must be
+                                                email
+                                            </small>
+                                            <small class="error alert-danger"
+                                                [hidden]="!rgForm['email'].hasError('serverError')">{{rgForm['email'].errors?.serverError|titlecase}}
+                                            </small>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-outline mb-4">
+                                        <label class="form-label" for="password">Password</label>
+                                        <input class="form-control form-control-lg" type="password" id="password"
+                                            formControlName="password" />
+
+                                        <div [hidden]="rgForm['password'].valid||rgForm['password'].untouched">
+                                            <small class="error alert-danger"
+                                                [hidden]="!rgForm['password'].hasError('required')">password
+                                                is
+                                                required !!!
+                                            </small>
+                                            <small class="error alert-danger"
+                                                [hidden]="!rgForm['password'].hasError('minlength')">Must be 8 character
+                                                long
+                                            </small>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-outline mb-4">
+                                        <label class="form-label" for="contactNumber">Contact Number</label>
+                                        <input class="form-control form-control-lg" type="text" id="contactNumber"
+                                            required formControlName="contactNo" />
+
+                                        <!-- <span class="alert-danger mb-2 mt-2" *ngIf="errContactNo">{{errContactNo}}
+                                        </span> -->
+                                        <div [hidden]="rgForm['contactNo'].valid||rgForm['contactNo'].untouched"
+                                            class="alert-danger">
+                                            <small class="error alert-danger"
+                                                [hidden]="!rgForm['contactNo'].hasError('pattern')">Contact number
+                                                must be number
+                                            </small>
+                                            <small class="error alert-danger"
+                                                [hidden]="!rgForm['contactNo'].hasError('required')">ContactNo
+                                                is
+                                                required !!!
+                                            </small>
+                                            <small class="error alert-danger"
+                                                [hidden]="!rgForm['contactNo'].hasError('minlength')">Contact number
+                                                contains 10 digits
+                                            </small>
+                                            <small class="error alert-danger"
+                                                [hidden]="!rgForm['contactNo'].hasError('maxlength')">Contact number
+                                                contains 10 digits
+                                            </small>
+                                            <small class="error alert-danger"
+                                                [hidden]="!rgForm['contactNo'].hasError('serverError')">{{rgForm['contactNo'].errors?.serverError|titlecase}}
+                                            </small>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-outline mb-4">
+                                        <label class="form-label" for="address">Address</label>
+                                        <input class="form-control form-control-lg" type="text" id="address" required
+                                            formControlName="address" />
+
+                                        <div [hidden]="rgForm['address'].valid||rgForm['address'].untouched">
+                                            <small class="error alert-danger"
+                                                [hidden]="!rgForm['address'].hasError('required')">Address
+                                                is
+                                                required !!!
+                                            </small>
+                                            <small class="error alert-danger"
+                                                [hidden]="!rgForm['address'].hasError('minlength')">Please enter full
+                                                address
+
+                                            </small>
+                                            <small class="error alert-danger"
+                                                [hidden]="!rgForm['address'].hasError('maxlength')">Must
+                                                be maximum 50 character
+                                            </small>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="form-check d-flex mb-5">
+                                        <input class="form-check-input" type="checkbox" id="termsAndCondition"
+                                            name="termsAndCondition" required formControlName="termsAndCondition" />
+
+                                        <label class="form-check-label" for="termsAndCondition">
+                                            I agree all statements in <a href="">Terms of
+                                                service</a>
+                                        </label>
+                                        <!-- <div
+                                            [hidden]="rgForm['termsAndCondition'].valid||rgForm['termsAndCondition'].untouched">
+                                            <small class="error alert-danger"
+                                                [hidden]="!rgForm['termsAndCondition'].hasError('required')">termsAndCondition
+                                                is
+                                                required !!!
+                                            </small>
+                                        </div> -->
+                                    </div>
+
+                                    <div class="d-flex justify-content-center">
+                                        <button class="btn btn-primary btn-block btn-lg gradient-custom-4"
+                                            [disabled]="!registerForm.valid">Signup</button>
+                                    </div>
+
+                                    <!-- <p class=" text-center text-muted mt-5 mb-0">Have already an account? <a
+                                            routerLink="/auth/login" class="fw-bold text-body"><u>Login here</u></a>
+                                    </p> -->
+
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

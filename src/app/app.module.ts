@@ -18,6 +18,7 @@ import { UserModule } from './pages/user/user.module';
 
 import { AuthLoginGuard } from './@core/guards/auth.login.guard';
 import { AuthAdminGuard } from './@core/guards/auth.admin.guard';
+import { ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,6 +36,7 @@ import { AuthAdminGuard } from './@core/guards/auth.admin.guard';
     CategoryModule,
     AdminModule,
     UserModule,
+    ReactiveFormsModule,
   ],
   providers: [
     {
